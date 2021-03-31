@@ -1,0 +1,11 @@
+display/z $sp
+display/z $ra
+display/z $a0
+display/z $s0
+display/z $s1
+display/z $s2
+
+set disassemble-next-line on
+b _start
+target remote : 1234
+c
