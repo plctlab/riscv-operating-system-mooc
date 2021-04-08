@@ -8,7 +8,7 @@
 	.text			# Define beginning of text section
 	.global	_start		# Define entry _start
 
-_start:				# Label, not really required
+_start:
 	li x6, 2		# x6 = 2
 	addi x5, x6, 1		# x5 = x6 + 1
 

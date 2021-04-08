@@ -13,7 +13,7 @@
 	.text			# Define beginning of text section
 	.global	_start		# Define entry _start
 
-_start: 			# Label, not really required
+_start:
 	li x6, 0xffffffab	# int x6 = 0xffffffab
 	la x5, _array		# array[0] = (char)x6
 	sb x6, 0(x5)

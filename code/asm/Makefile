@@ -1,5 +1,6 @@
 SECTIONS_Arithmetic = \
 	add \
+	add2 \
 	sub \
 	addi \
 	subi \
@@ -22,7 +23,6 @@ SECTIONS_Shifting = \
 SECTIONS_Load_Store = \
 	lb \
 	lbu \
-	lw \
 	sb \
 	auipc \
 	la

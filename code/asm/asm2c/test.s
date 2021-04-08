@@ -2,9 +2,9 @@
 
 	.text			# Define beginning of text section
 	.global	_start		# Define entry _start
-	.global	foo		# 
+	.global	foo		# foo is a C function defined in test.c
 
-_start: 			# Label, not really required
+_start:
 	la sp, stack_end	# prepare stack for calling functions
 
 	li a0, 1

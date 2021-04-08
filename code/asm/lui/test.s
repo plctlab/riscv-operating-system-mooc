@@ -10,7 +10,7 @@
 	.text			# Define beginning of text section
 	.global	_start		# Define entry _start
 
-_start:				# Label, not really required
+_start:
 	lui x5, 0x12345		# int x5 = 0x12345 << 12
 	addi x5, x5, 0x678	# x5 = x5 + 0x678
 stop:

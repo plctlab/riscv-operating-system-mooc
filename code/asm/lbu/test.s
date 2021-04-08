@@ -13,7 +13,7 @@
 	.text			# Define beginning of text section
 	.global	_start		# Define entry _start
 
-_start: 			# Label, not really required
+_start:
 	la x5, _array		# unsigned char *x5 = &(array[0])
 	lbu x6, 0(x5)		# unsigned x6 = *x5
 	lbu x7, 1(x5)		# unsigned x7 = *(x5 + 1)

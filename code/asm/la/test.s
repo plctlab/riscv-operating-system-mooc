@@ -17,9 +17,9 @@
 	.text			# Define beginning of text section
 	.global	_start		# Define entry _start
 
-_start:				# Label, not really required
-	la x5, _start		# x6 = PC
-	jr x5	
+_start:
+	la x5, _start		# x5 = _start
+	jr x5
 
 stop:
 	j stop			# Infinite loop to stop execution

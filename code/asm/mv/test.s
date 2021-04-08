@@ -10,7 +10,7 @@
 	.text			# Define beginning of text section
 	.global	_start		# Define entry _start
 
-_start:				# Label, not really required
+_start:
 	li x6, 30		# x6 = 30
 	mv x5, x6		# x5 = x6
 	addi x5, x6, 0		# these two instructions assemble into the same thing!

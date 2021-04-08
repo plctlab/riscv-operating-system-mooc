@@ -11,9 +11,10 @@
 	.text			# Define beginning of text section
 	.global	_start		# Define entry _start
 
-_start: 			# Label, not really required
+_start:
 	# i = 0
 	# while (i < 5) i++;
+
 	li x5, 0
 	li x6, 5
 loop:

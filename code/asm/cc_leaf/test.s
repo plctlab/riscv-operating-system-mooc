@@ -1,10 +1,21 @@
 # Calling Convention
 # Demo to create a leaf routine
+#
+# void _start()
+# {
+#     // calling leaf routine
+#     square(3);
+# }
+#
+# int square(int num)
+# {
+#     return num * num;
+# }
 
 	.text			# Define beginning of text section
-	.global	_start	# Define entry _start
+	.global	_start		# Define entry _start
 
-_start: 			# Label, not really required
+_start:
 	la sp, stack_end	# prepare stack for calling functions
 
 	li a0, 3

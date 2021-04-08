@@ -1,10 +1,26 @@
 # Calling Convention
-# Demo how to write nested routunes
+# Demo how to write nested routines
+#
+# void _start()
+# {
+#     // calling nested routine
+#     aa_bb(3, 4);
+# }
+#
+# int aa_bb(int a, int b)
+# {
+#     return square(a) + square(b);
+# }
+#
+# int square(int num)
+# {
+#     return num * num;
+# }
 
 	.text			# Define beginning of text section
 	.global	_start		# Define entry _start
 
-_start: 			# Label, not really required
+_start:
 	la sp, stack_end	# prepare stack for calling functions
 
 	# aa_bb(3, 4);

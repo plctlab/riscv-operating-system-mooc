@@ -10,9 +10,10 @@
 	.text			# Define beginning of text section
 	.global	_start		# Define entry _start
 
-_start:				# Label, not really required
+_start:
 	nop			# do nothing and has no effect on system
-	addi x0, x0, 0		# these two instructions assemble into the same thing!
+	
+	addi x0, x0, 0		# the same as nop
 
 stop:
 	j stop			# Infinite loop to stop execution

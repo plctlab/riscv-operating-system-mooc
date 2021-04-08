@@ -25,6 +25,21 @@
 #	the least-significant bit of the result to zero. JALR can therefore target 
 #	a ±1 KiB range, relative to the address in RS1.
 #	The address of the instruction following the jump(pc+4) is written to register RD.
+#
+# Sample to demo how to call a sub-function and return from it
+#
+# int a = 1;
+# int b = 1;
+#
+# void sum()
+# {
+#     a = a + b;
+# } 
+#
+# void _start()
+# {
+#     sum();
+# }
 
 	.text			# Define beginning of text section
 	.global	_start		# Define entry _start
