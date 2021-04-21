@@ -1,7 +1,7 @@
 SYSCALL = y
 
 CROSS_COMPILE = riscv64-unknown-elf-
-CFLAGS = -nostdlib -fno-builtin -mcmodel=medany -march=rv32ima -mabi=ilp32 -g -Wall
+CFLAGS = -nostdlib -fno-builtin -march=rv32ima -mabi=ilp32 -g -Wall
 
 ifeq ($(SYSCALL), y)
 CFLAGS += -D CONFIG_SYSCALL

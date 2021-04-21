@@ -14,6 +14,8 @@ _start:
 stop:
 	j stop			# Infinite loop to stop execution
 
+	nop			# just for demo effect
+
 stack_start:
 	.rept 10
 	.word 0
