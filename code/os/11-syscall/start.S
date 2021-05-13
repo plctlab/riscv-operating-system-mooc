@@ -29,17 +29,21 @@ _start:
 	add	sp, sp, t0		# move the current hart stack pointer
 					# to its place in the stack space
 
-#ifndef CONFIG_SYSCALL
 	# At the end of start_kernel, schedule() will call MRET to switch
 	# to the first task, so we parepare the mstatus here.
-	# Set mstatus.MPIE to 1, so MRET will enable the interrupt.
-	# Set mstatus.MPP to 3, so we still run in Machine mode after MRET.
 	# Notice: default mstatus is 0
+#ifdef CONFIG_SYSCALL
+	# Keep mstatus.MPP as 0, so we will run in User mode after MRET.
+	# Set mstatus.MPIE to 1, so MRET will enable the interrupt.
+	li	t0, 1 << 7
+#else
+	# Set mstatus.MPP to 3, so we still run in Machine mode after MRET.
+	# Set mstatus.MPIE to 1, so MRET will enable the interrupt.
 	li	t0, 3 << 11 | 1 << 7
+#endif
 	csrr	a1, mstatus
 	or	t0, t0, a1
 	csrw	mstatus, t0
-#endif
 
 	j	start_kernel		# hart 0 jump to c
 
