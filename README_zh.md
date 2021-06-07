@@ -12,6 +12,16 @@
 
 本课程用于教学演示如何从零开始为 RISC-V 平台编写一个简单的操作系统内核。采用 BSD 2-Clause 许可证发布（具体请阅读本仓库根目录下的 [LICENSE 文件](./LICENSE)）。
 
+**本课程的配套教学视频在线播放地址**: <https://www.bilibili.com/video/BV1Q5411w7z5>
+
+欢迎加入本课程的 **学习群**，边学习边讨论：
+
+- **QQ 学习群**，群号 976125506，或者扫码加入，见下：
+
+![](./qq-group.png)
+
+- **微信学习群**，请添加微信 fangzhang1024 （标注 【汪辰老师】）加入。
+
 # 运行环境
 
 所有演示代码在以下设备环境下验证通过：
@@ -43,7 +53,11 @@ $ mkdir $HOME/ws
 $ cd $HOME/ws
 ```
 
-下载开发工具软件包 `tools.tar.gz`，下载地址为：<https://share.weiyun.com/nyTqAGKh>。
+下载开发工具软件包 `tools.tar.gz`，下载地址为：
+
+- 腾讯微云: <https://share.weiyun.com/nyTqAGKh>
+或者
+- 百度网盘：链接：<https://pan.baidu.com/s/11FAq64YGu3JVkZSTtoVMOg>, 提取码：bjnj 
 
 下载完毕后将该文件拷贝到 `$HOME/ws` 下并解压。
 

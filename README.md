@@ -43,7 +43,12 @@ $ mkdir $HOME/ws
 $ cd $HOME/ws
 ```
 
-Download the development tool package `tools.tar.gz`, the download address is:<https://share.weiyun.com/nyTqAGKh>。
+Download the development tool package `tools.tar.gz`, the download address are:
+- <https://share.weiyun.com/nyTqAGKh>
+
+or
+
+- <https://pan.baidu.com/s/11FAq64YGu3JVkZSTtoVMOg>, password: bjnj
 
 After downloading, copy the file to `$HOME/ws` and unzip it.
 

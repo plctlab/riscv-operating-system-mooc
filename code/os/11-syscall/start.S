@@ -1,6 +1,7 @@
 #include "platform.h"
 
-	.equ	STACK_SIZE, 8192
+	# size of each hart's stack is 1024 bytes
+	.equ	STACK_SIZE, MAXNUM_CPU * 1024
 
 	.global	_start
 
@@ -52,6 +53,6 @@ park:
 	j	park
 
 stacks:
-	.skip	STACK_SIZE * MAXNUM_CPU	# allocate space for the harts stacks
+	.skip	STACK_SIZE		# allocate space for all the harts stacks
 
 	.end				# End of file
