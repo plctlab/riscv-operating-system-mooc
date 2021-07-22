@@ -12,6 +12,8 @@
 
 本课程用于教学演示如何从零开始为 RISC-V 平台编写一个简单的操作系统内核。采用 BSD 2-Clause 许可证发布（具体请阅读本仓库根目录下的 [LICENSE 文件](./LICENSE)）。
 
+如果您有任何的问题或者发现任何可疑的 bug，请通过 [Gitee 的 issue 跟踪系统](https://gitee.com/unicornx/riscv-operating-system-mooc/issues) 给我们提出报告，我们将第一时间检查并在系统中回复您。
+
 **本课程的配套教学视频在线播放地址**: <https://www.bilibili.com/video/BV1Q5411w7z5>
 
 欢迎加入本课程的 **学习群**，边学习边讨论：
@@ -40,7 +42,7 @@ $ uname -r
 有可能需要手动安装的依赖库，如果运行过程中提示缺少其他的库和依赖，请按照提示自行安装。
 
 ```
-$ sudo apt update 
+$ sudo apt update
 $ sudo apt install build-essential git gitk vim libfdt-dev libsdl2-dev
 ```
 
@@ -57,7 +59,7 @@ $ cd $HOME/ws
 
 - 腾讯微云: <https://share.weiyun.com/nyTqAGKh>
 或者
-- 百度网盘：链接：<https://pan.baidu.com/s/11FAq64YGu3JVkZSTtoVMOg>, 提取码：bjnj 
+- 百度网盘：链接：<https://pan.baidu.com/s/11FAq64YGu3JVkZSTtoVMOg>, 提取码：bjnj
 
 下载完毕后将该文件拷贝到 `$HOME/ws` 下并解压。
 

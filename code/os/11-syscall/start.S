@@ -1,7 +1,7 @@
 #include "platform.h"
 
 	# size of each hart's stack is 1024 bytes
-	.equ	STACK_SIZE, MAXNUM_CPU * 1024
+	.equ	STACK_SIZE, 1024
 
 	.global	_start
 
@@ -26,7 +26,7 @@ _start:
 	# stack pointer to the very end of the stack range.
 	slli	t0, t0, 10		# shift left the hart id by 1024
 	la	sp, stacks + STACK_SIZE	# set the initial stack pointer
-					# to the end of the stack space
+					# to the end of the first stack space
 	add	sp, sp, t0		# move the current hart stack pointer
 					# to its place in the stack space
 
@@ -53,6 +53,6 @@ park:
 	j	park
 
 stacks:
-	.skip	STACK_SIZE		# allocate space for all the harts stacks
+	.skip	STACK_SIZE * MAXNUM_CPU # allocate space for all the harts stacks
 
 	.end				# End of file
