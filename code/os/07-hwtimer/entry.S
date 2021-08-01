@@ -33,7 +33,9 @@
 	sw t3, 108(\base)
 	sw t4, 112(\base)
 	sw t5, 116(\base)
-	sw t6, 120(\base)
+	# we don't save t6 here, due to we have used
+	# it as base, we have to save t6 in an extra step
+	# outside of reg_save
 .endm
 
 # restore all General-Purpose(GP) registers from the context
@@ -89,7 +91,15 @@ trap_vector:
 	# save context(registers).
 	csrrw	t6, mscratch, t6	# swap t6 and mscratch
 	reg_save t6
-	csrw	mscratch, t6
+
+	# Save the actual t6 register, which we swapped into
+	# mscratch
+	mv	t5, t6		# t5 points to the context of current task
+	csrr	t6, mscratch	# read t6 back from mscratch
+	sw	t6, 120(t5)	# save t6 with t5 as base
+
+	# Restore the context pointer into mscratch
+	csrw	mscratch, t5
 
 	# call the C trap handler in trap.c
 	csrr	a0, mepc
@@ -115,6 +125,12 @@ switch_to:
 	beqz	t6, 1f			# Notice: previous task may be NULL
 	reg_save t6			# save context of prev task
 
+	# Save the actual t6 register, which we swapped into
+	# mscratch
+	mv	t5, t6		# t5 points to the context of current task
+	csrr	t6, mscratch	# read t6 back from mscratch
+	sw	t6, 120(t5)	# save t6 with t5 as base
+
 1:
 	# switch mscratch to point to the context of the next task
 	csrw	mscratch, a0
@@ -123,7 +139,7 @@ switch_to:
 	# Use t6 to point to the context of the new task
 	mv	t6, a0
 	reg_restore t6
-	
+
 	# Do actual context switching.
 	ret
 
