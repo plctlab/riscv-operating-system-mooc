@@ -37,6 +37,22 @@ _start:
 	# Keep mstatus.MPP as 0, so we will run in User mode after MRET.
 	# Set mstatus.MPIE to 1, so MRET will enable the interrupt.
 	li	t0, 1 << 7
+
+	# https://lore.kernel.org/qemu-devel/20201223192553.332508-1-atish.patra@wdc.com/
+	# For qemu version >= 6.0, exception would be raised if no PMP enty is
+	# configured. So just configure one entny, which allows all the whole
+	# 32-bits physical address range is R/W/X.
+	# FIXME: I say it is a temporary workaroud due to I think the patch
+	# above contains bug, and I have raised new issue to qemu but it has not
+	# been rootcaused till now. Details please refer to
+	# https://gitlab.com/qemu-project/qemu/-/issues/585 or
+	# https://gitee.com/unicornx/riscv-operating-system-mooc/issues/I441IC (in chinese)
+	# So it's just a temporary workaround till now to not block people who
+	# want to try newer qemu (>= 6.0).
+	li      t0, 0xffffffff
+	csrw    pmpaddr0, t0
+	li      t0, 0xf
+	csrw    pmpcfg0, t0
 #else
 	# Set mstatus.MPP to 3, so we still run in Machine mode after MRET.
 	# Set mstatus.MPIE to 1, so MRET will enable the interrupt.

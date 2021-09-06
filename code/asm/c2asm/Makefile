@@ -1,6 +1,6 @@
 EXEC = test
 
-SRC = $(EXEC).s $(EXEC).c
+SRC = ${EXEC}.s ${EXEC}.c
 
 GDBINIT = ./gdbinit
 

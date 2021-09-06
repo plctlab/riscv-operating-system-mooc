@@ -2,13 +2,13 @@
 
 <!-- TOC -->
 
-- [简介](#简介)
-- [运行环境](#运行环境)
-- [构建和使用说明](#构建和使用说明)
-- [参考文献](#参考文献)
+- [1. 简介](#1-简介)
+- [2. 运行环境](#2-运行环境)
+- [3. 构建和使用说明](#3-构建和使用说明)
+- [4. 参考文献](#4-参考文献)
 
 <!-- /TOC -->
-# 简介
+# 1. 简介
 
 本课程用于教学演示如何从零开始为 RISC-V 平台编写一个简单的操作系统内核。采用 BSD 2-Clause 许可证发布（具体请阅读本仓库根目录下的 [LICENSE 文件](./LICENSE)）。
 
@@ -24,67 +24,44 @@
 
 - **微信学习群**，请添加微信 fangzhang1024 （标注 【汪辰老师】）加入。
 
-# 运行环境
+# 2. 运行环境
 
-所有演示代码在以下设备环境下验证通过：
+推荐使用 Ubuntu 20.04，Ubuntu 20.04 是目前最新的 Ubuntu 长期稳定发行版，在这个环境下安装运行环境也最简单。
+
+有些同学反映希望仍然使用Ubuntu 18.04，因为 Ubunt 18.04 的官方源还不支持 RISC-V 的开发工具包，所以搭建环境稍微复杂一些，我写了一个简单的说明文档，感兴趣的同学可以看 [这里](./howto-run-with-ubuntu1804_zh.md)。
+
+所有演示代码在以下环境下验证通过，请仔细核对你的 Ubuntu 版本和内核版本与以下信息是否一致。
 
 ```
 $ lsb_release -a
 No LSB modules are available.
 Distributor ID:	Ubuntu
-Description:	Ubuntu 20.04.2 LTS
+Description:	Ubuntu 20.04.3 LTS
 Release:	20.04
 Codename:	focal
+
 $ uname -r
-5.8.0-45-generic
+5.11.0-27-generic
 ```
 
-有可能需要手动安装的依赖库，如果运行过程中提示缺少其他的库和依赖，请按照提示自行安装。
+目前在 Ubuntu 20.04 环境下我们可以直接使用官方提供的 GNU工具链和 QEMU 模拟器，执行如下命令在线安装即可开始试验：
 
 ```
 $ sudo apt update
-$ sudo apt install build-essential git gitk vim libfdt-dev libsdl2-dev
+$ sudo apt install build-essential gcc make perl dkms git gcc-riscv64-unknown-elf gdb-multiarch qemu-system-misc
 ```
 
-实验需要一些运行工具，已经提供预先编译好的二进制文件，具体安装步骤描述如下：
+# 3. 构建和使用说明
 
-首先，创建一个工作目录，然后进入该目录。
-
-```
-$ mkdir $HOME/ws
-$ cd $HOME/ws
-```
-
-下载开发工具软件包 `tools.tar.gz`，下载地址为：
-
-- 腾讯微云: <https://share.weiyun.com/nyTqAGKh>
-或者
-- 百度网盘：链接：<https://pan.baidu.com/s/11FAq64YGu3JVkZSTtoVMOg>, 提取码：bjnj
-
-下载完毕后将该文件拷贝到 `$HOME/ws` 下并解压。
-
-```
-$ tar xzf tools.tar.gz
-```
-
-将以下路径加入 `$HOME/.bashrc`
-```
-export PATH="$PATH:$HOME/ws/tools/gcc/bin:$HOME/ws/tools/qemu/bin"
-```
-
-重新导入 `$HOME/.bashrc` 或者重启系统使配置生效即可。
-
-# 构建和使用说明
-
-- make：编译构建
-- make run：启动 qemu 并运行
-- make debug：启动调试
-- make code：反汇编查看二进制代码
-- make clean：清理
+- `make`：编译构建
+- `make run`：启动 qemu 并运行
+- `make debug`：启动调试
+- `make code`：反汇编查看二进制代码
+- `make clean`：清理
 
 具体使用请参考具体子项目下的 Makefile 文件。
 
-# 参考文献
+# 4. 参考文献
 
 本课程的设计参考了如下网络资源，在此表示感谢 :)
 

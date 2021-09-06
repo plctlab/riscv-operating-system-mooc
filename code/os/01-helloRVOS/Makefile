@@ -1,13 +1,4 @@
-CROSS_COMPILE = riscv64-unknown-elf-
-CFLAGS = -nostdlib -fno-builtin -march=rv32ima -mabi=ilp32 -g -Wall
-
-QEMU = qemu-system-riscv32
-QFLAGS = -nographic -smp 1 -machine virt -bios none
-
-GDB = ${CROSS_COMPILE}gdb
-CC = ${CROSS_COMPILE}gcc
-OBJCOPY = ${CROSS_COMPILE}objcopy
-OBJDUMP = ${CROSS_COMPILE}objdump
+include ../../common.mk
 
 SRCS_ASM = \
 	start.S \
@@ -24,7 +15,7 @@ all: os.elf
 
 # start.o must be the first in dependency!
 os.elf: ${OBJS}
-	${CC} $(CFLAGS) -Ttext=0x80000000 -o os.elf $^
+	${CC} ${CFLAGS} -Ttext=0x80000000 -o os.elf $^
 	${OBJCOPY} -O binary os.elf os.bin
 
 %.o : %.c
