@@ -33,7 +33,7 @@
 
 /*
  * POWER UP DEFAULTS
- * IER = 0: TX/RX holding register interrupts are bith disabled
+ * IER = 0: TX/RX holding register interrupts are both disabled
  * ISR = 1: no interrupt penting
  * LCR = 0
  * MCR = 0
