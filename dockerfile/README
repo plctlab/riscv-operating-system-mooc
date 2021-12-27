@@ -1,0 +1,30 @@
+- Tools update
+  you can use submodule or download to this folder directly!!!
+  ```
+  git submodule 
+     387dd93f7fe8bba60e3bd7f461d1012ea6590842 rvos_tools (heads/master)
+
+  git submodule update --init
+  ```
+  
+- Install docker with linux
+  ```
+  sudo apt-get install docker.io
+  ```
+  you can choose other methods in your mac/windows OS.
+  
+- Build docker
+  ```
+  sudo docker build -t riscv_os_sdk:latest .
+  sudo docker images
+  ```
+  if apt is slower while building, you can change the apt source list of 
+  source docker image.
+
+  
+- Run docker
+  ```
+  sudo docker run --rm -it -v $PWD:/root/ riscv_os_sdk:latest /bin/bash
+  ```
+  refer to https://docs.docker.com/reference/
+

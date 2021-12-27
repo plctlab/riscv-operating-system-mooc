@@ -1,4 +1,5 @@
 *.o
 *.bin
 *.elf
+dockerfile/rvos_tools/
 
