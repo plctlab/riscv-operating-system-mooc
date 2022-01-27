@@ -26,7 +26,7 @@ _start:
 	# aa_bb(3, 4);
 	li a0, 3
 	li a1, 4
-	call aa_bb 
+	call aa_bb
 
 stop:
 	j stop			# Infinite loop to stop execution
@@ -40,7 +40,7 @@ aa_bb:
 	sw s1, 4(sp)
 	sw s2, 8(sp)
 	sw ra, 12(sp)
-	
+
 	# cp and store the input params
 	mv s0, a0
 	mv s1, a1
@@ -51,11 +51,11 @@ aa_bb:
 	mv a0, s0
 	jal square
 	add s2, s2, a0
-	
+
 	mv a0, s1
 	jal square
 	add s2, s2, a0
-	
+
 	mv a0, s2
 
 	# epilogue
@@ -83,15 +83,15 @@ square:
 	lw s0, 0(sp)
 	lw s1, 4(sp)
 	addi sp, sp, 8
-	
+
 	ret
-	
+
 	# add nop here just for demo in gdb
 	nop
 
 	# allocate stack space
 stack_start:
-	.rept 10
+	.rept 12
 	.word 0
 	.endr
 stack_end:

@@ -20,7 +20,7 @@ stop:
 	nop			# just for demo effect
 
 stack_start:
-	.rept 10
+	.rept 12
 	.word 0
 	.endr
 stack_end:

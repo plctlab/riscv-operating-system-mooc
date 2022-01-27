@@ -42,7 +42,7 @@ square:
 	lw s0, 0(sp)
 	lw s1, 4(sp)
 	addi sp, sp, 8
-	
+
 	ret
 
 	# add nop here just for demo in gdb
@@ -50,7 +50,7 @@ square:
 
 	# allocate stack space
 stack_start:
-	.rept 10
+	.rept 12
 	.word 0
 	.endr
 stack_end:
