@@ -110,7 +110,7 @@ void *page_alloc(int npages)
 	/* Note we are searching the page descriptor bitmaps. */
 	int found = 0;
 	struct Page *page_i = (struct Page *)HEAP_START;
-	for (int i = 0; i < (_num_pages - npages); i++) {
+	for (int i = 0; i <= (_num_pages - npages); i++) {
 		if (_is_free(page_i)) {
 			found = 1;
 			/* 
