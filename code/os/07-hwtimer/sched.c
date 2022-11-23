@@ -38,7 +38,7 @@ void schedule()
 /*
  * DESCRIPTION
  * 	Create a task.
- * 	- start_routin: task routune entry
+ * 	- start_routin: task routine entry
  * RETURN VALUE
  * 	0: success
  * 	-1: if error occured
