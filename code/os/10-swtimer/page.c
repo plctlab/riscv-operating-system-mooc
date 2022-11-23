@@ -117,8 +117,8 @@ void *page_alloc(int npages)
 			 * meet a free page, continue to check if following
 			 * (npages - 1) pages are also unallocated.
 			 */
-			struct Page *page_j = page_i;
-			for (int j = i; j < (i + npages); j++) {
+			struct Page *page_j = page_i + 1;
+			for (int j = i + 1; j < (i + npages); j++) {
 				if (!_is_free(page_j)) {
 					found = 0;
 					break;
