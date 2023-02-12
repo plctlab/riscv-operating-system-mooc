@@ -77,9 +77,11 @@
 .endm
 
 # Something to note about save/restore:
-# - We use mscratch to hold a pointer to context of previous task
+# - We use mscratch to hold a pointer to context of current task
 # - We use t6 as the 'base' for reg_save/reg_restore, because it is the
 #   very bottom register (x31) and would not be overwritten during loading.
+#   Note: CSRs(mscratch) can not be used as 'base' due to load/restore
+#   instruction only accept general purpose registers.
 
 .text
 

@@ -77,9 +77,11 @@
 .endm
 
 # Something to note about save/restore:
-# - We use mscratch to hold a pointer to context of previous task
+# - We use mscratch to hold a pointer to context of current task
 # - We use t6 as the 'base' for reg_save/reg_restore, because it is the
 #   very bottom register (x31) and would not be overwritten during loading.
+#   Note: CSRs(mscratch) can not be used as 'base' due to load/restore
+#   instruction only accept general purpose registers.
 
 .text
 
@@ -122,7 +124,7 @@ trap_vector:
 .align 4
 switch_to:
 	csrrw	t6, mscratch, t6	# swap t6 and mscratch
-	beqz	t6, 1f			# Notice: the first time switch_to() is
+	beqz	t6, 1f			# Note: the first time switch_to() is
 	                                # called, mscratch is initialized as zero
 					# (in sched_init()), which makes t6 zero,
 					# and that's the special case we have to
@@ -131,7 +133,7 @@ switch_to:
 
 	# Save the actual t6 register, which we swapped into
 	# mscratch
-	mv	t5, t6		# t5 points to the context of next task
+	mv	t5, t6		# t5 points to the context of current task
 	csrr	t6, mscratch	# read t6 back from mscratch
 	sw	t6, 120(t5)	# save t6 with t5 as base
 
