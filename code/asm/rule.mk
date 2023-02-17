@@ -18,6 +18,7 @@ debug: all
 	@echo "-------------------------------------------------------"
 	@${QEMU} ${QFLAGS} -kernel ${EXEC}.elf -s -S &
 	@${GDB} ${EXEC}.elf -q -x ${GDBINIT}
+	@killall -e ${QEMU}
 
 .PHONY : code
 code: all
