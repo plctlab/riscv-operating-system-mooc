@@ -5,7 +5,11 @@ extern void switch_to(struct context *next);
 
 #define MAX_TASKS 10
 #define STACK_SIZE 1024
-uint8_t task_stack[MAX_TASKS][STACK_SIZE];
+/*
+ * In the standard RISC-V calling convention, the stack pointer sp
+ * is always 16-byte aligned.
+ */
+uint8_t __attribute__((aligned(16))) task_stack[MAX_TASKS][STACK_SIZE];
 struct context ctx_tasks[MAX_TASKS];
 
 /*
@@ -51,7 +55,7 @@ void schedule()
 int task_create(void (*start_routin)(void))
 {
 	if (_top < MAX_TASKS) {
-		ctx_tasks[_top].sp = (reg_t) &task_stack[_top][STACK_SIZE - 1];
+		ctx_tasks[_top].sp = (reg_t) &task_stack[_top][STACK_SIZE];
 		ctx_tasks[_top].ra = (reg_t) start_routin;
 		_top++;
 		return 0;

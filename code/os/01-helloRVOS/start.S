@@ -26,6 +26,9 @@ park:
 	wfi
 	j	park
 
+	# In the standard RISC-V calling convention, the stack pointer sp
+	# is always 16-byte aligned.
+.align 16
 stacks:
 	.skip	STACK_SIZE * MAXNUM_CPU # allocate space for all the harts stacks
 
