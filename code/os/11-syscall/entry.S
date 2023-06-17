@@ -1,12 +1,17 @@
-# save all General-Purpose(GP) registers to context
+# Save all General-Purpose(GP) registers to context.
 # struct context *base = &ctx_task;
 # base->ra = ra;
 # ......
+# These GP registers to be saved don't include gp
+# and tp, because they are not caller-saved or
+# callee-saved. These two registers are often used
+# for special purpose. For example, in RVOS, 'tp'
+# (aka "thread pointer") is used to store hartid,
+# which is a global value and would not be changed
+# during context-switch.
 .macro reg_save base
 	sw ra, 0(\base)
 	sw sp, 4(\base)
-	sw gp, 8(\base)
-	sw tp, 12(\base)
 	sw t0, 16(\base)
 	sw t1, 20(\base)
 	sw t2, 24(\base)
@@ -39,14 +44,13 @@
 .endm
 
 # restore all General-Purpose(GP) registers from the context
+# except gp & tp.
 # struct context *base = &ctx_task;
 # ra = base->ra;
 # ......
 .macro reg_restore base
 	lw ra, 0(\base)
 	lw sp, 4(\base)
-	lw gp, 8(\base)
-	lw tp, 12(\base)
 	lw t0, 16(\base)
 	lw t1, 20(\base)
 	lw t2, 24(\base)
