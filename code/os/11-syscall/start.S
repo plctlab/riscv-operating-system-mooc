@@ -52,9 +52,12 @@ _start:
 	# to the first task, so we parepare the mstatus here.
 	# Notice: default mstatus is 0
 #ifdef CONFIG_SYSCALL
-	# Keep mstatus.MPP as 0, so we will run in User mode after MRET.
-	# Set mstatus.MPIE to 1, so MRET will enable the interrupt.
-	li	t0, 1 << 7
+	# Set mstatus.MPP as 0, so we will run in User mode after MRET.
+	# No need to set mstatus.MPIE to 1 explicitly, because according to ISA
+	# specification: interrupts for M-mode, which is higher than U-mode, are
+	# always globally enabled regardless of the setting of the global MIE bit.
+	# So finally we simply reset t0 to zero.
+	li	t0, 0
 #else
 	# Set mstatus.MPP to 3, so we still run in Machine mode after MRET.
 	# Set mstatus.MPIE to 1, so MRET will enable the interrupt.
