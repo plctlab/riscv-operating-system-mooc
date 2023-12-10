@@ -104,8 +104,15 @@ SECTIONS
 		 * current location becomes aligned on 4096-byte boundary.
 		 * This is because our paging system's resolution is 4,096 bytes.
 		 */
-		. = ALIGN(4096);
-		PROVIDE(_data_start = .);
+		/* . = ALIGN(4096);
+		PROVIDE(_data_start = .); */
+		/**! BUG Here is a question, if `. = ALIGN (4096)` in the front, 
+		 * ! it will cause the position in the kernel to get DATA_START directly changed to BSS_START, 
+		 * ! while BSS_START and DATA_END are equal, which means that DATA_START = DATA_END, 
+		 * ! resulting in a direct DATA segment of 0
+         */
+        PROVIDE(_data_start = .);
+        . = ALIGN(4096);
 		/*
 		 * sdata and data are essentially the same thing. We do not need
 		 * to distinguish sdata from data.
