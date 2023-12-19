@@ -7,8 +7,8 @@
  * https://sourceware.org/binutils/docs/ld/Miscellaneous-Commands.html
  * OUTPUT_ARCH command specifies a particular output machine architecture.
  * "riscv" is the name of the architecture for both 64-bit and 32-bit
- * RISC-V target. We will further refine this by using -march=rv32ima
- * and -mabi=ilp32 when calling gcc.
+ * RISC-V target. We will further refine this by using -march
+ * and -mabi when calling gcc.
  */
 OUTPUT_ARCH( "riscv" )
 
