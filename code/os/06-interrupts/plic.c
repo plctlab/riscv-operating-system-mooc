@@ -25,7 +25,7 @@ void plic_init(void)
 	 * Each global interrupt can be enabled by setting the corresponding 
 	 * bit in the enables registers.
 	 */
-	*(uint32_t*)PLIC_MENABLE(hart)= (1 << UART0_IRQ);
+	*(uint32_t*)PLIC_MENABLE(hart, UART0_IRQ)= (1 << (UART0_IRQ % 32));
 
 	/* 
 	 * Set priority threshold for UART0.
