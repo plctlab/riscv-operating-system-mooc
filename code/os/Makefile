@@ -1,15 +1,4 @@
 SECTIONS = \
-	00-bootstrap \
-	01-helloRVOS \
-	02-memanagement \
-	03-contextswitch \
-	04-multitask \
-	05-traps \
-	06-interrupts \
-	07-hwtimer \
-	08-preemptive \
-	09-lock \
-	10-swtimer \
 	11-syscall \
 
 .DEFAULT_GOAL := all
