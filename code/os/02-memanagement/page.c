@@ -83,7 +83,7 @@ void page_init()
 	 * It should be enough to manage at most 128 MB (8 x 4096 x 4096) 
 	 */
 	_num_pages = (HEAP_SIZE / PAGE_SIZE) - 8;
-	printf("HEAP_START = %x, HEAP_SIZE = %x, num of pages = %d\n", HEAP_START, HEAP_SIZE, _num_pages);
+	printf("HEAP_START = %p, HEAP_SIZE = 0x%lx, num of pages = %d\n", HEAP_START, HEAP_SIZE, _num_pages);
 	
 	struct Page *page = (struct Page *)HEAP_START;
 	for (int i = 0; i < _num_pages; i++) {
@@ -94,11 +94,11 @@ void page_init()
 	_alloc_start = _align_page(HEAP_START + 8 * PAGE_SIZE);
 	_alloc_end = _alloc_start + (PAGE_SIZE * _num_pages);
 
-	printf("TEXT:   0x%x -> 0x%x\n", TEXT_START, TEXT_END);
-	printf("RODATA: 0x%x -> 0x%x\n", RODATA_START, RODATA_END);
-	printf("DATA:   0x%x -> 0x%x\n", DATA_START, DATA_END);
-	printf("BSS:    0x%x -> 0x%x\n", BSS_START, BSS_END);
-	printf("HEAP:   0x%x -> 0x%x\n", _alloc_start, _alloc_end);
+	printf("TEXT:   %p -> %p\n", TEXT_START, TEXT_END);
+	printf("RODATA: %p -> %p\n", RODATA_START, RODATA_END);
+	printf("DATA:   %p -> %p\n", DATA_START, DATA_END);
+	printf("BSS:    %p -> %p\n", BSS_START, BSS_END);
+	printf("HEAP:   %p -> %p\n", _alloc_start, _alloc_end);
 }
 
 /*
@@ -176,14 +176,14 @@ void page_free(void *p)
 void page_test()
 {
 	void *p = page_alloc(2);
-	printf("p = 0x%x\n", p);
+	printf("p = %p\n", p);
 	//page_free(p);
 
 	void *p2 = page_alloc(7);
-	printf("p2 = 0x%x\n", p2);
+	printf("p2 = %p\n", p2);
 	page_free(p2);
 
 	void *p3 = page_alloc(4);
-	printf("p3 = 0x%x\n", p3);
+	printf("p3 = %p\n", p3);
 }
 

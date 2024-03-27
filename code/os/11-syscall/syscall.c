@@ -3,7 +3,7 @@
 
 int sys_gethid(unsigned int *ptr_hid)
 {
-	printf("--> sys_gethid, arg0 = 0x%x\n", ptr_hid);
+	printf("--> sys_gethid, arg0 = %p\n", ptr_hid);
 	if (ptr_hid == NULL) {
 		return -1;
 	} else {

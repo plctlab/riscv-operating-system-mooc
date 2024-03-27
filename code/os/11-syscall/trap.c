@@ -58,12 +58,12 @@ reg_t trap_handler(reg_t epc, reg_t cause, struct context *cxt)
 			external_interrupt_handler();
 			break;
 		default:
-			uart_puts("unknown async exception!\n");
+			printf("Unknown async exception! Code = %ld\n", cause_code);
 			break;
 		}
 	} else {
 		/* Synchronous trap - exception */
-		printf("Sync exceptions!, code = %d\n", cause_code);
+		printf("Sync exceptions! Code = %ld\n", cause_code);
 		switch (cause_code) {
 		case 8:
 			uart_puts("System call from U-mode!\n");

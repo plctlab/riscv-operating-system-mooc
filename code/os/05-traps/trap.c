@@ -28,12 +28,12 @@ reg_t trap_handler(reg_t epc, reg_t cause)
 			uart_puts("external interruption!\n");
 			break;
 		default:
-			uart_puts("unknown async exception!\n");
+			printf("Unknown async exception! Code = %ld\n", cause_code);
 			break;
 		}
 	} else {
 		/* Synchronous trap - exception */
-		printf("Sync exceptions!, code = %d\n", cause_code);
+		printf("Sync exceptions! Code = %ld\n", cause_code);
 		panic("OOPS! What can I do!");
 		//return_pc += 4;
 	}
