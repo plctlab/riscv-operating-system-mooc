@@ -18,43 +18,53 @@ GDB = gdb-multiarch
 CC = ${CROSS_COMPILE}gcc
 OBJCOPY = ${CROSS_COMPILE}objcopy
 OBJDUMP = ${CROSS_COMPILE}objdump
+MKDIR = mkdir -p
+RM = rm -rf
+
+OUTPUT_PATH = out
 
 # SRCS_ASM & SRCS_C are defined in the Makefile of each project.
-OBJS = $(SRCS_ASM:.S=.o)
-OBJS += $(SRCS_C:.c=.o)
+OBJS_ASM := $(addprefix ${OUTPUT_PATH}/, $(patsubst %.S, %.o, ${SRCS_ASM}))
+OBJS_C   := $(addprefix $(OUTPUT_PATH)/, $(patsubst %.c, %.o, ${SRCS_C}))
+OBJS = ${OBJS_ASM} ${OBJS_C}
+
+ELF = ${OUTPUT_PATH}/os.elf
+BIN = ${OUTPUT_PATH}/os.bin
 
 .DEFAULT_GOAL := all
-all: os.elf
+all: ${OUTPUT_PATH} ${ELF}
+
+${OUTPUT_PATH}:
+	@${MKDIR} $@
 
 # start.o must be the first in dependency!
-os.elf: ${OBJS}
-	${CC} ${CFLAGS} ${LDFLAGS} -o os.elf $^
-	${OBJCOPY} -O binary os.elf os.bin
+${ELF}: ${OBJS}
+	${CC} ${CFLAGS} ${LDFLAGS} -o ${ELF} $^
+	${OBJCOPY} -O binary ${ELF} ${BIN}
 
-%.o : %.c
+${OUTPUT_PATH}/%.o : %.c
 	${CC} ${DEFS} ${CFLAGS} -c -o $@ $<
 
-%.o : %.S
+${OUTPUT_PATH}/%.o : %.S
 	${CC} ${DEFS} ${CFLAGS} -c -o $@ $<
 
 run: all
 	@${QEMU} -M ? | grep virt >/dev/null || exit
 	@echo "Press Ctrl-A and then X to exit QEMU"
 	@echo "------------------------------------"
-	@${QEMU} ${QFLAGS} -kernel os.elf
+	@${QEMU} ${QFLAGS} -kernel ${ELF}
 
 .PHONY : debug
 debug: all
 	@echo "Press Ctrl-C and then input 'quit' to exit GDB and QEMU"
 	@echo "-------------------------------------------------------"
-	@${QEMU} ${QFLAGS} -kernel os.elf -s -S &
-	@${GDB} os.elf -q -x ../gdbinit
+	@${QEMU} ${QFLAGS} -kernel ${ELF} -s -S &
+	@${GDB} ${ELF} -q -x ../gdbinit
 
 .PHONY : code
 code: all
-	@${OBJDUMP} -S os.elf | less
+	@${OBJDUMP} -S ${ELF} | less
 
 .PHONY : clean
 clean:
-	rm -rf *.o *.bin *.elf
-
+	@${RM} ${OUTPUT_PATH}
