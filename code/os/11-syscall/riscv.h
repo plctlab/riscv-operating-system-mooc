@@ -108,4 +108,14 @@ static inline reg_t r_mcause()
 	return x;
 }
 
+#ifdef CONFIG_PLATFORM_DUO
+// machine-mode cycle counter
+static inline reg_t r_time()
+{
+	reg_t x;
+	asm volatile("csrr %0, time" : "=r" (x) );
+	return x;
+}
+#endif
+
 #endif /* __RISCV_H__ */

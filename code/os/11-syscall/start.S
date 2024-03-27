@@ -1,4 +1,10 @@
+#if defined(CONFIG_PLATFORM_QEMU)
 #include "platform.h"
+#elif defined(CONFIG_PLATFORM_DUO)
+#include "platform_duo.h"
+#else
+#warning "Unsupported Platform!"
+#endif
 
 	# size of each hart's stack is 1024 bytes
 	.equ	STACK_SIZE, 1024

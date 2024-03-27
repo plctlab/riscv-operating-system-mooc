@@ -13,10 +13,26 @@ static struct timer timer_list[MAX_TIMER];
 /* load timer interval(in ticks) for next timer interrupt.*/
 void timer_load(int interval)
 {
+#if defined(CONFIG_PLATFORM_QEMU)
 	/* each CPU has a separate source of timer interrupts. */
 	int id = r_mhartid();
 	
 	*(uint64_t*)CLINT_MTIMECMP(id) = *(uint64_t*)CLINT_MTIME + interval;
+
+#elif defined(CONFIG_PLATFORM_DUO)
+	/*
+	 * See XuanTie C906 UserManual v10
+	 * Chapter 9.3
+	 * The CPU can read the CSR time, the mirror of MTIME, through CSR
+	 * instruction to get its value.
+	 */
+	uint64_t time = r_time() + interval;
+
+	*(uint32_t*)CLINT_MTIMECMPL = time & 0xffffffff;
+	*(uint32_t*)CLINT_MTIMECMPH = (time >> 32) & 0xffffffff;
+#else
+	#warning "Unsupported Platform!"
+#endif
 }
 
 void timer_init()

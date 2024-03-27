@@ -3,7 +3,14 @@
 
 #include "types.h"
 #include "riscv.h"
+#if defined(CONFIG_PLATFORM_QEMU)
 #include "platform.h"
+#elif defined(CONFIG_PLATFORM_DUO)
+#include "platform_duo.h"
+#else
+#warning "Unsupported Platform!"
+#endif
+
 
 #include <stddef.h>
 #include <stdarg.h>

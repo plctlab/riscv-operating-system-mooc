@@ -4,7 +4,13 @@
  * The UART control registers are memory-mapped at address UART0. 
  * This macro returns the address of one of the registers.
  */
+#if defined(CONFIG_PLATFORM_QEMU)
 #define UART_REG(reg) ((volatile uint8_t *)(UART0 + reg))
+#elif defined(CONFIG_PLATFORM_DUO)
+#define UART_REG(reg) ((volatile uint32_t *)(UART0 + (reg * 4)))
+#else
+#warning "Unsupported Platform!"
+#endif
 
 /*
  * Reference
@@ -89,8 +95,21 @@ void uart_init()
 	 */
 	uint8_t lcr = uart_read_reg(LCR);
 	uart_write_reg(LCR, lcr | (1 << 7));
+#if defined(CONFIG_PLATFORM_QEMU)
 	uart_write_reg(DLL, 0x03);
 	uart_write_reg(DLM, 0x00);
+#elif defined(CONFIG_PLATFORM_DUO)
+	/*
+	 * See Datasheet @ https://github.com/milkv-duo/duo-files/tree/main/duo/datasheet
+	 * Chapter 12.2.4.1
+	 * Default UART working clock (UART_SCLK) is XTAL 25MHz.
+	 */
+	int divisor = 25000000 / (16 * 115200);
+	uart_write_reg(DLL, (divisor & 0xff));
+	uart_write_reg(DLM, ((divisor >> 8) & 0xff));
+#else
+	#warning "Unsupported Platform!"
+#endif
 
 	/*
 	 * Continue setting the asynchronous data communication format.

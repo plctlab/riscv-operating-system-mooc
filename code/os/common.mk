@@ -3,6 +3,7 @@
 
 # Custom Macro Definition (Common part)
 ARCH = RV64
+PLATFORM = DUO
 
 include ../defines.mk
 DEFS +=
