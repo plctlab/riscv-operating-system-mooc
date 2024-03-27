@@ -2,15 +2,25 @@
 # This file will be included by the Makefile of each project.
 
 # Custom Macro Definition (Common part)
+ARCH = RV64
 
 include ../defines.mk
 DEFS +=
 
 CROSS_COMPILE = riscv64-unknown-elf-
 CFLAGS += -nostdlib -fno-builtin -g -Wall
+ifeq (${ARCH}, RV64)
+CFLAGS += -march=rv64g -mabi=lp64 -mcmodel=medany
+else
 CFLAGS += -march=rv32g -mabi=ilp32
+endif
 
+ifeq (${ARCH}, RV64)
+QEMU = qemu-system-riscv64
+else
 QEMU = qemu-system-riscv32
+endif
+
 QFLAGS = -nographic -smp 1 -machine virt -bios none
 
 GDB = gdb-multiarch
