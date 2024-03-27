@@ -1,4 +1,11 @@
+# Common part for the Makefile.
 # This file will be included by the Makefile of each project.
+
+# Custom Macro Definition (Common part)
+
+
+include ../defines.mk
+DEFS +=
 
 CROSS_COMPILE = riscv64-unknown-elf-
 CFLAGS += -nostdlib -fno-builtin -march=rv32g -mabi=ilp32 -g -Wall
@@ -25,10 +32,10 @@ os.elf: ${OBJS}
 	${OBJCOPY} -O binary os.elf os.bin
 
 %.o : %.c
-	${CC} ${CFLAGS} -c -o $@ $<
+	${CC} ${DEFS} ${CFLAGS} -c -o $@ $<
 
 %.o : %.S
-	${CC} ${CFLAGS} -c -o $@ $<
+	${CC} ${DEFS} ${CFLAGS} -c -o $@ $<
 
 run: all
 	@${QEMU} -M ? | grep virt >/dev/null || exit

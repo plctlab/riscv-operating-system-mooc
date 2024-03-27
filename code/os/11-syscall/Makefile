@@ -1,9 +1,5 @@
 SYSCALL = y
 
-ifeq (${SYSCALL}, y)
-CFLAGS += -D CONFIG_SYSCALL
-endif
-
 SRCS_ASM = \
 	start.S \
 	mem.S \
