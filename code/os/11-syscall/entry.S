@@ -1,6 +1,12 @@
+#ifdef CONFIG_RV64
+#define LOAD		ld
+#define STORE		sd
+#define SIZE_REG	8
+#else
 #define LOAD		lw
 #define STORE		sw
 #define SIZE_REG	4
+#endif
 
 # Save all General-Purpose(GP) registers to context.
 # struct context *base = &ctx_task;

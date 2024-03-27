@@ -1,4 +1,8 @@
+#ifdef CONFIG_RV64
+#define SIZE_PTR .dword
+#else
 #define SIZE_PTR .word
+#endif
 
 .section .rodata
 .global HEAP_START

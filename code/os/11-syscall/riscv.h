@@ -93,8 +93,13 @@ static inline void w_mie(reg_t x)
 }
 
 /* Machine-mode Cause Masks */
+#ifdef CONFIG_RV64
+#define MCAUSE_MASK_INTERRUPT	(reg_t)0x8000000000000000
+#define MCAUSE_MASK_ECODE	(reg_t)0x7FFFFFFFFFFFFFFF
+#else
 #define MCAUSE_MASK_INTERRUPT	(reg_t)0x80000000
 #define MCAUSE_MASK_ECODE	(reg_t)0x7FFFFFFF
+#endif
 
 static inline reg_t r_mcause()
 {
