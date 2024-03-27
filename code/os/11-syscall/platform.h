@@ -13,6 +13,7 @@
 #define MAXNUM_CPU 8
 
 /* used in os.ld */
+#define ORIGIN_ADDRESS 0x80000000
 #define LENGTH_RAM 128*1024*1024
 
 /*

@@ -9,6 +9,14 @@ else
 DEFS += -DCONFIG_RV32
 endif
 
+ifeq (${PLATFORM}, QEMU)
+DEFS += -DCONFIG_PLATFORM_QEMU
+else ifeq (${PLATFORM}, DUO)
+DEFS += -DCONFIG_PLATFORM_DUO
+else
+$(error "Unsupported Platform!")
+endif
+
 ifeq (${SYSCALL}, y)
 DEFS += -DCONFIG_SYSCALL
 endif
