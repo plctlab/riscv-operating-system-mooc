@@ -92,6 +92,10 @@ static inline void w_mie(reg_t x)
 	asm volatile("csrw mie, %0" : : "r" (x));
 }
 
+/* Machine-mode Cause Masks */
+#define MCAUSE_MASK_INTERRUPT	(reg_t)0x80000000
+#define MCAUSE_MASK_ECODE	(reg_t)0x7FFFFFFF
+
 static inline reg_t r_mcause()
 {
 	reg_t x;

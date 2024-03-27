@@ -13,9 +13,9 @@ void trap_init()
 reg_t trap_handler(reg_t epc, reg_t cause)
 {
 	reg_t return_pc = epc;
-	reg_t cause_code = cause & 0xfff;
+	reg_t cause_code = cause & MCAUSE_MASK_ECODE;
 	
-	if (cause & 0x80000000) {
+	if (cause & MCAUSE_MASK_INTERRUPT) {
 		/* Asynchronous trap - interrupt */
 		switch (cause_code) {
 		case 3:

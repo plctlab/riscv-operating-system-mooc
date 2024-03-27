@@ -7,8 +7,9 @@ typedef unsigned int  uint32_t;
 typedef unsigned long long uint64_t;
 
 /*
- * RISCV32: register is 32bits width
- */ 
+ * Register Width
+ */
 typedef uint32_t reg_t;
+typedef uint32_t ptr_t;
 
 #endif /* __TYPES_H__ */

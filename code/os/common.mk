@@ -8,7 +8,8 @@ include ../defines.mk
 DEFS +=
 
 CROSS_COMPILE = riscv64-unknown-elf-
-CFLAGS += -nostdlib -fno-builtin -march=rv32g -mabi=ilp32 -g -Wall
+CFLAGS += -nostdlib -fno-builtin -g -Wall
+CFLAGS += -march=rv32g -mabi=ilp32
 LDFLAGS ?= -T os.ld
 
 QEMU = qemu-system-riscv32

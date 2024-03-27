@@ -3,24 +3,24 @@
 /*
  * Following global vars are defined in mem.S
  */
-extern uint32_t TEXT_START;
-extern uint32_t TEXT_END;
-extern uint32_t DATA_START;
-extern uint32_t DATA_END;
-extern uint32_t RODATA_START;
-extern uint32_t RODATA_END;
-extern uint32_t BSS_START;
-extern uint32_t BSS_END;
-extern uint32_t HEAP_START;
-extern uint32_t HEAP_SIZE;
+extern ptr_t TEXT_START;
+extern ptr_t TEXT_END;
+extern ptr_t DATA_START;
+extern ptr_t DATA_END;
+extern ptr_t RODATA_START;
+extern ptr_t RODATA_END;
+extern ptr_t BSS_START;
+extern ptr_t BSS_END;
+extern ptr_t HEAP_START;
+extern ptr_t HEAP_SIZE;
 
 /*
  * _alloc_start points to the actual start address of heap pool
  * _alloc_end points to the actual end address of heap pool
  * _num_pages holds the actual max number of pages we can allocate.
  */
-static uint32_t _alloc_start = 0;
-static uint32_t _alloc_end = 0;
+static ptr_t _alloc_start = 0;
+static ptr_t _alloc_end = 0;
 static uint32_t _num_pages = 0;
 
 #define PAGE_SIZE 4096
@@ -70,9 +70,9 @@ static inline int _is_last(struct Page *page)
 /*
  * align the address to the border of page(4K)
  */
-static inline uint32_t _align_page(uint32_t address)
+static inline ptr_t _align_page(ptr_t address)
 {
-	uint32_t order = (1 << PAGE_ORDER) - 1;
+	ptr_t order = (1 << PAGE_ORDER) - 1;
 	return (address + order) & (~order);
 }
 
@@ -155,12 +155,12 @@ void page_free(void *p)
 	/*
 	 * Assert (TBD) if p is invalid
 	 */
-	if (!p || (uint32_t)p >= _alloc_end) {
+	if (!p || (ptr_t)p >= _alloc_end) {
 		return;
 	}
 	/* get the first page descriptor of this memory block */
 	struct Page *page = (struct Page *)HEAP_START;
-	page += ((uint32_t)p - _alloc_start)/ PAGE_SIZE;
+	page += ((ptr_t)p - _alloc_start)/ PAGE_SIZE;
 	/* loop and clear all the page descriptors of the memory block */
 	while (!_is_free(page)) {
 		if (_is_last(page)) {

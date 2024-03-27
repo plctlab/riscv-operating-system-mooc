@@ -58,7 +58,7 @@ struct context {
 	// upon is trap frame
 
 	// save the pc to run in next schedule cycle
-	reg_t pc; // offset: 31 *4 = 124
+	reg_t pc; // offset: 31 * sizeof(reg_t)
 };
 
 extern int  task_create(void (*task)(void));

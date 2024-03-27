@@ -5,7 +5,7 @@
  * QEMU RISC-V Virt machine with 16550a UART and VirtIO MMIO
  */
 
-/* 
+/*
  * maximum number of CPUs
  * see https://github.com/qemu/qemu/blob/master/include/hw/riscv/virt.h
  * #define VIRT_CPUS_MAX 8
@@ -14,7 +14,7 @@
 
 /*
  * MemoryMap
- * see https://github.com/qemu/qemu/blob/master/hw/riscv/virt.c, virt_memmap[] 
+ * see https://github.com/qemu/qemu/blob/master/hw/riscv/virt.c, virt_memmap[]
  * 0x00001000 -- boot ROM, provided by qemu
  * 0x02000000 -- CLINT
  * 0x0C000000 -- PLIC
