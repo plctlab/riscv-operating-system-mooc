@@ -49,7 +49,11 @@ LDFLAGS = -Ttext=0x80000000
 endif
 
 .DEFAULT_GOAL := all
+ifeq (${PLATFORM}, DUO)
+all: ${OUTPUT_PATH} ${ELF} gen_fip
+else
 all: ${OUTPUT_PATH} ${ELF}
+endif
 
 ${OUTPUT_PATH}:
 	@${MKDIR} $@
@@ -94,3 +98,24 @@ code: all
 .PHONY : clean
 clean:
 	@${RM} ${OUTPUT_PATH}
+
+chip_conf:
+	python3 ../chip_conf.py ${OUTPUT_PATH}/chip_conf.bin
+
+gen_fip: $(BIN) chip_conf
+	python3 ../fiptool.py -v genfip \
+		'${OUTPUT_PATH}/fip.bin' \
+		--MONITOR_RUNADDR="0x0000000080000000" \
+		--BLCP_2ND_RUNADDR="0x0000000083f40000" \
+		--CHIP_CONF='${OUTPUT_PATH}/chip_conf.bin' \
+		--NOR_INFO='FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF' \
+		--NAND_INFO='00000000'\
+		--BL2='../prebuild/bl2.bin' \
+		--BLCP_IMG_RUNADDR=0x05200200 \
+		--BLCP_PARAM_LOADADDR=0 \
+		--BLCP='../prebuild/empty.bin' \
+		--DDR_PARAM='../prebuild/ddr_param.bin' \
+		--BLCP_2ND='../prebuild/rtos.bin' \
+		--MONITOR='${OUTPUT_PATH}/os.bin' \
+		--LOADER_2ND='../prebuild/u-boot-raw.bin' \
+		--compress='lzma'
