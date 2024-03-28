@@ -2,3 +2,4 @@
 *.bin
 *.elf
 code/os/*/out/
+!code/os/prebuild/*.bin
