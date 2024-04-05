@@ -1,1 +1,1 @@
-../build.mk
+include ../build.mk
