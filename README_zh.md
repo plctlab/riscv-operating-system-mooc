@@ -5,7 +5,8 @@
 - [1. 简介](#1-简介)
 - [2. 运行环境](#2-运行环境)
 - [3. 构建和使用说明](#3-构建和使用说明)
-- [4. 参考文献](#4-参考文献)
+- [4. 有关 RVOS 的移植](#4-有关-rvos-的移植)
+- [5. 参考文献](#5-参考文献)
 
 <!-- /TOC -->
 
@@ -70,10 +71,20 @@ $ sudo apt install build-essential gcc make perl dkms git gcc-riscv64-unknown-el
 
 具体使用请参考具体子项目下的 Makefile 文件。
 
-# 4. 参考文献
+# 4. 有关 RVOS 的移植
+
+可以参考这篇文章： [《将 RVOS 移植到 MilkV-Duo 上》][1]，介绍了如何将 RVOS 从 32 位扩展为 64 位，以及如何将其移植到一款真正的硬件（Milk-V Duo）上。
+
+也可以看 [这里，收集了网友将本课程代码移植到各种硬件的活动记录][2]。 
+
+# 5. 参考文献
 
 本课程的设计参考了如下网络资源，在此表示感谢 :)
 
 - The Adventures of OS：<https://osblog.stephenmarz.com/index.html>
 - mini-riscv-os: <https://github.com/cccriscv/mini-riscv-os>
 - Xv6, a simple Unix-like teaching operating system：<https://pdos.csail.mit.edu/6.828/2020/xv6.html>
+
+
+[1]: https://zhuanlan.zhihu.com/p/691697875
+[2]: https://gitee.com/unicornx/riscv-operating-system-mooc/issues/I64EEQ
