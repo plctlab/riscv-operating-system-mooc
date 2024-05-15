@@ -103,10 +103,18 @@ void uart_init()
 	 * See Datasheet @ https://github.com/milkv-duo/duo-files/tree/main/duo/datasheet
 	 * Chapter 12.2.4.1
 	 * Default UART working clock (UART_SCLK) is XTAL 25MHz.
+	 *
+	 * Strictly follow the TRM formula to calculate,
+	 * divisor = UART_CLOCKRATE / (16 * UART_BAUDRATE)
+	 * DLL = divisor & 0xff;
+	 * DLM = (divisor >> 8) & 0xff;
+	 * In theory, the value obtained by the division calculation
+	 * is approximately 13.56. However, the division result on the computer
+	 * will directly discard the decimal, resulting in 13.
+	 * The loss of accuracy is large. Using 14 has a smaller error.
 	 */
-	int divisor = 25000000 / (16 * 115200);
-	uart_write_reg(DLL, (divisor & 0xff));
-	uart_write_reg(DLM, ((divisor >> 8) & 0xff));
+	uart_write_reg(DLL, 0x0e);
+	uart_write_reg(DLM, 0x00);
 #else
 	#warning "Unsupported Platform!"
 #endif
