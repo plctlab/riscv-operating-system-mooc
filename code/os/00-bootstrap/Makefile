@@ -1,4 +1,4 @@
-LDFLAGS = -Ttext=0x80000000
+USE_LINKER_SCRIPT = false
 
 SRCS_ASM = \
 	start.S \

@@ -76,22 +76,52 @@ static inline ptr_t _align_page(ptr_t address)
 	return (address + order) & (~order);
 }
 
+/*
+ *    ______________________________HEAP_SIZE_______________________________
+ *   /   ___num_reserved_pages___   ______________num_pages______________   \
+ *  /   /                        \ /                                     \   \
+ *  |---|<--Page-->|<--Page-->|...|<--Page-->|<--Page-->|......|<--Page-->|---|
+ *  A   A                         A                                       A   A
+ *  |   |                         |                                       |   |
+ *  |   |                         |                                       |   _memory_end
+ *  |   |                         |                                       |
+ *  |   _heap_start_aligned       _alloc_start                            _alloc_end
+ *  HEAP_START(BSS_END)
+ *
+ *  Note: _alloc_end may equal to _memory_end.
+ */
 void page_init()
 {
+	ptr_t _heap_start_aligned = _align_page(HEAP_START);
+
 	/* 
-	 * We reserved 8 Page (8 x 4096) to hold the Page structures.
-	 * It should be enough to manage at most 128 MB (8 x 4096 x 4096) 
+	 * We reserved some Pages to hold the Page structures.
+	 * The number of reserved pages depends on the LENGTH_RAM.
+	 * For simplicity, the space we reserve here is just an approximation,
+	 * assuming that it can accommodate the maximum LENGTH_RAM.
+	 * We assume LENGTH_RAM should not be too small, ideally no less
+	 * than 16M (i.e. PAGE_SIZE * PAGE_SIZE).
 	 */
-	_num_pages = (HEAP_SIZE / PAGE_SIZE) - 8;
-	printf("HEAP_START = %p, HEAP_SIZE = 0x%lx, num of pages = %d\n", HEAP_START, HEAP_SIZE, _num_pages);
+	uint32_t num_reserved_pages = LENGTH_RAM / (PAGE_SIZE * PAGE_SIZE);
+
+	_num_pages = (HEAP_SIZE - (_heap_start_aligned - HEAP_START))/ PAGE_SIZE - num_reserved_pages;
+	printf("HEAP_START = %p(aligned to %p), HEAP_SIZE = 0x%lx,\n"
+	       "num of reserved pages = %d, num of pages to be allocated for heap = %d\n",
+	       HEAP_START, _heap_start_aligned, HEAP_SIZE,
+	       num_reserved_pages, _num_pages);
 	
+	/*
+	 * We use HEAP_START, not _heap_start_aligned as begin address for
+	 * allocating struct Page, because we have no requirement of alignment
+	 * for position of struct Page.
+	 */
 	struct Page *page = (struct Page *)HEAP_START;
 	for (int i = 0; i < _num_pages; i++) {
 		_clear(page);
 		page++;	
 	}
 
-	_alloc_start = _align_page(HEAP_START + 8 * PAGE_SIZE);
+	_alloc_start = _heap_start_aligned + num_reserved_pages * PAGE_SIZE;
 	_alloc_end = _alloc_start + (PAGE_SIZE * _num_pages);
 
 	printf("TEXT:   %p -> %p\n", TEXT_START, TEXT_END);

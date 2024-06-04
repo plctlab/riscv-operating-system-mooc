@@ -3,6 +3,8 @@
  * Linker script for outputting to RVOS
  */
 
+#include "platform.h"
+
 /*
  * https://sourceware.org/binutils/docs/ld/Miscellaneous-Commands.html
  * OUTPUT_ARCH command specifies a particular output machine architecture.
@@ -47,7 +49,7 @@ ENTRY( _start )
  */
 MEMORY
 {
-	ram   (wxa!ri) : ORIGIN = 0x80000000, LENGTH = 128M
+	ram   (wxa!ri) : ORIGIN = 0x80000000, LENGTH = LENGTH_RAM
 }
 
 /*
