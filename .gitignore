@@ -1,4 +1,4 @@
 *.o
 *.bin
 *.elf
-
+code/os/*/out/
