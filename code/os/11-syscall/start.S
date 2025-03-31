@@ -57,7 +57,7 @@ _start:
 	# No need to set mstatus.MPIE to 1 explicitly, because according to ISA
 	# specification: interrupts for M-mode, which is higher than U-mode, are
 	# always globally enabled regardless of the setting of the global MIE bit.
-	li	t0, 3 << 11
+	li	t0, 0
 	csrc	mstatus, t0
 #else
 	# Set mstatus.MPP to 3, so we still run in Machine mode after MRET.
